@@ -7,6 +7,6 @@ export class Libro {
     autor: string;
 
     @IsString()
-    fecha: string;
+    fecha: Date;
 
 }

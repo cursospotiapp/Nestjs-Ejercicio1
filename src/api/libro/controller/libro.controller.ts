@@ -12,57 +12,28 @@ export class LibroController {
 
     @Get()
     async findAll(): Promise<Libro[]> {
-        return this.libroService.getLibros();
+        return await this.libroService.getLibros();
     }
-
 
     @Get('/:id')
-    getById(@Param() params): LibroDto {
-        const libro = new LibroDto();
-        libro.id = params.id;
-        libro.titulo = 'Don Quijote';
-        libro.autor = 'Don Quijote';
-        libro.fecha = '1605'
-        return libro;
+    async getById(@Param() params): Promise<Libro> {
+        return await this.libroService.getLibroById(params.id);
     }
 
-    //  @Post()
-    //  addOne(@Body() libro: Libro): Libro {
-
-    // return this.libroService.createLibro(libro);
-    /*
-    const libroModif = new Libro();
-    libroModif.id = 1;
-    libroModif.titulo = libro.titulo;
-    libroModif.autor = libro.autor;
-    libroModif.fecha = libro.fecha;
-    return libroModif;
-    */
-    // }
-
+    @Post()
+    async addLibro(@Body() libro: Libro): Promise<Libro> {
+        return await this.libroService.createLibro(libro);
+    }
 
     @Put('/:id')
-    modifyById(@Param() params,
-        @Body() libro: LibroDto): LibroDto {
-
-        const libroAct = new LibroDto();
-        libroAct.id = params.id;
-        libroAct.titulo = libro.titulo;
-        libroAct.autor = libro.autor;
-        libroAct.fecha = libro.fecha;
-
-        return libroAct;
+    async modifyById(@Param() params,
+        @Body() libro: Libro): Promise<Libro> {
+        return await this.libroService.updateLibro(params.id, libro);
     }
 
-
     @Delete('/:id')
-    deleteById(@Param() params): LibroDto {
-        const libro = new LibroDto();
-        libro.id = params.id;
-        libro.titulo = 'Pepe';
-        libro.autor = 'Fulano Escritor';
-        libro.fecha = '1605'
-        return libro;
+    async deleteById(@Param() params): Promise<Libro> {
+        return await this.libroService.deleteLibro(params.id)
     }
 
 

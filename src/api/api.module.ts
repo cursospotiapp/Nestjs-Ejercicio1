@@ -5,8 +5,14 @@ import { LibroService } from './libro/service/libro.service';
 import { LibroSchema } from './libro/models/libro.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'Libro', schema: LibroSchema }])],
   controllers: [LibroController],
-  providers: [LibroService]
+  providers: [LibroService],
+  imports: [MongooseModule.forFeature(
+    [{
+      name: 'Libro',
+      schema: LibroSchema,
+      collection: 'libros'
+    }]
+  )]
 })
 export class ApiModule { }
